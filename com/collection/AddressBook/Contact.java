@@ -1,11 +1,5 @@
 package com.collection.AddressBook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-
 public class Contact {
 	private String firstName;
 	private String lastName;
@@ -15,7 +9,7 @@ public class Contact {
 	private int zip;
 	private long phoneNo;
 	private String email;
-	
+
 	public Contact() {
 
 	}
@@ -31,7 +25,7 @@ public class Contact {
 		this.zip = zip;
 		this.phoneNo = phoneNo;
 		this.email = email;
-		
+
 	}
 
 	public String getFirstName() {
@@ -97,12 +91,12 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	@Override
 	public String toString() {
 		return "Contact{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", street='" + street
 				+ '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", zip=" + zip + ", phoneNo=" + phoneNo
 				+ ", email='" + email + '\'' + '}' + "\n";
 	}
-	
-	
+
 }
