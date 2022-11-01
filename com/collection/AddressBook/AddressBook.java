@@ -3,105 +3,136 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-	private ArrayList<Contact> contacts = new ArrayList<>();
+	ArrayList<Contact> list = new ArrayList<Contact>();//// It represents a single diary where contact has been stored
+    String bookName; /// It represent the name of diary
 
-	private Scanner sc = new Scanner(System.in);
+    void addContact() {
+        Contact contact = new Contact();
+        contact.addContact();
+        boolean duplicateContact = list.stream().anyMatch(x -> x.firstName.equals(contact.firstName));
+        if (duplicateContact == true) {
+            System.out.println("It is a duplicate contact.");
+            return;
+        } else {
+            list.add(contact);
+            System.out.println("Contact added successfully");
+        }
 
-	public void addContact() {
-		System.out.println("Enter first and last name : ");
-		String firstName = sc.next();
-		String lastName = sc.next();
-		System.out.println("Enter street : ");
-		String street = sc.next();
-		System.out.println("Enter city and state : ");
-		String city = sc.next();
-		String state = sc.next();
-		System.out.println("Enter zip : ");
-		int zip = sc.nextInt();
-		System.out.println("Enter contact number : ");
-		long phoneNo = sc.nextLong();
-		System.out.println("Enter email id : ");
-		String email = sc.next();
+    }
 
-		contacts.add(new Contact(firstName, lastName, street, city, state, zip, phoneNo, email));
+    void deletePerson(String name, ArrayList<Contact> list) {
+        if (list.size() == 0) {
+            System.out.println("Address book is empty.Please Add First");
+        } else {
+            int m = 0;
+            for (int i = list.size() - 1; i >= 0; --i) {
+                if (list.get(i).firstName.contains(name)) {
+                    list.remove(i);
+                    System.out.println("Contact deleted successfully");
+                    m += 1;
+                    break;
+                }
+            }
+            if (m == 0) {
+                System.out.println("No contact with the given name exist");
+            }
+        }
 
-	}
+    }
 
-	public void displayContact() {
-		for (Contact contact : contacts) {
-			System.out.println(contact);
-		}
-	}
+    void editPerson(String name, ArrayList<Contact> list) {
+        if (list.size() == 0) {
+            System.out.println("Addressbook is empty.Please add First");
+        } else {
+            int m = 0;
+            for (int i = list.size() - 1; i >= 0; --i) {
+                if (list.get(i).firstName.contains(name)) {
+                    list.get(i).addContact();
+                    System.out.println("Contact Updated successfully");
+                    m += 1;
+                    break;
+                }
+            }
+            if (m == 0) {
+                System.out.println("No contact with the given name exist");
+            }
+        }
 
-	public void editContact() {
-		System.out.println("Enter person name : ");
-		String name = sc.next();
-		for (Contact contact : contacts) {
-			if (contact.getFirstName().equals(name) || contact.getLastName().equals(name)) {
-				System.out.println("What you want to edit : \n" + "1.first name \t" + "2.last name \t" + "3.street \t"
-						+ "4.city \t" + "5.state \t" + "6.zip \t" + "7.contact number \t" + "8.email");
-				int ch = sc.nextInt();
-				switch (ch) {
-				case 1:
-					System.out.println("Enter first name :");
-					contact.setFirstName(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				case 2:
-					System.out.println("Enter last name :");
-					contact.setLastName(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				case 3:
-					System.out.println("Enter street :");
-					contact.setStreet(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				case 4:
-					System.out.println("Enter city :");
-					contact.setCity(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				case 5:
-					System.out.println("Enter state :");
-					contact.setState(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				case 6:
-					System.out.println("Enter zip code :");
-					contact.setZip(sc.nextInt());
-					System.out.println("Contact updated!");
-					break;
-				case 7:
-					System.out.println("Enter contact number :");
-					contact.setPhoneNo(sc.nextLong());
-					System.out.println("Contact updated!");
-					break;
-				case 8:
-					System.out.println("Enter email :");
-					contact.setEmail(sc.next());
-					System.out.println("Contact updated!");
-					break;
-				default:
-					System.out.println("Invalid input.");
-				}
-				return;
-			}
-		}
-		System.out.println(name + " not found!");
-	}
+    }
 
-	public void deleteContact() {
-		System.out.println("Enter person name : ");
-		String name = sc.next();
-		for (Contact contact : contacts) {
-			if (contact.getFirstName().equals(name) || contact.getLastName().equals(name)) {
-				contacts.remove(contact);
-				System.out.println(contact.getFirstName() + " removed!");
-				return;
-			}
-		}
-		System.out.println(name + " not found!");
-	}
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+        System.out.println("Welcome to Address Book Program ");
+
+        AddressBookMain shelf = new AddressBookMain();
+
+        while (true) {
+            AddressBook addressBook = new AddressBook();
+            Scanner scan3 = new Scanner(System.in);
+            System.out.println("Enter the name of Book you want to  access or add  or type 'city' to search persons by city or type 'state' to search by state or press 'q' to quit");
+            String bookName = scan3.nextLine();
+            if (bookName.equals("q")) {
+                // if (addressBook.list.size() > 0) {
+                // book.addBook(bookName, addressBook);
+                // }
+                System.out.println("The program is closed");
+                break;
+            }
+            else if(bookName.equals("city")) {
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Enter the name of city  :");
+                String placeName = scan.nextLine();
+                shelf.showPersonsByCity(placeName);
+                continue;
+            }
+            else if(bookName.equals("state")) {
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Enter the name of state  :");
+                String placeName = scan.nextLine();
+                shelf.showPersonsByState(placeName);
+                continue;
+            }
+            int result = shelf.checkBook(bookName);//// (It can return 0 or 1)It will return 1 if book exist b and break
+            //// down loop
+            int condition = 0;///// It will keep check on the addressbook created or not
+            while (true) {
+                if (result == 1) {
+                    break;
+                }
+                System.out
+                        .println("Do you want to add/edit/delete the contact (0/1/2) :Press 3 to Go back to main menu");
+                Scanner scan = new Scanner(System.in);
+                int input = scan.nextInt();
+
+                if (input == 0) {
+
+                    addressBook.addContact();
+
+                } else if (input == 1) {
+                    Scanner scan1 = new Scanner(System.in);
+                    System.out.println("Enter the first name of person you to edit ");
+                    String name = scan1.nextLine();
+                    addressBook.editPerson(name, addressBook.list);
+
+                } else if (input == 2) {
+                    Scanner scan2 = new Scanner(System.in);
+                    System.out.println("Enter the first name of the person you want to delete : ");
+                    String name = scan2.nextLine();
+                    addressBook.deletePerson(name, addressBook.list);
+                }
+
+                else if (input == 3) {
+                    shelf.addBook(bookName, addressBook);
+                    break;
+                }
+
+                else {
+                    System.out.println("Enter the valid command");
+                }
+            }
+        }
+
+    }
 
 }
