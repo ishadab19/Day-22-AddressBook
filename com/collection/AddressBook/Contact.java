@@ -11,12 +11,10 @@ public class Contact {
 	private String email;
 
 	public Contact() {
-
-	}
+	};
 
 	public Contact(String firstName, String lastName, String street, String city, String state, int zip, long phoneNo,
 			String email) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.street = street;
@@ -25,7 +23,6 @@ public class Contact {
 		this.zip = zip;
 		this.phoneNo = phoneNo;
 		this.email = email;
-
 	}
 
 	public String getFirstName() {
@@ -98,5 +95,4 @@ public class Contact {
 				+ '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", zip=" + zip + ", phoneNo=" + phoneNo
 				+ ", email='" + email + '\'' + '}' + "\n";
 	}
-
 }
